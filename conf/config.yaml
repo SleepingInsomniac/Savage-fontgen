@@ -8,3 +8,4 @@ formats:
   - eot
 
 classprefix: if-
+glyphwidth: 1024
