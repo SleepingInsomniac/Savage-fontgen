@@ -27,7 +27,6 @@ for root, _, files in os.walk('./glyphs'):
         glyph.importOutlines("./glyphs/%s.svg" % name)
         unicode = unicode + 1
 
-_mkdir("./out")
 _mkdir("./out/fonts")
 
 with open('./out/glyphs.yaml', 'w') as outfile:

@@ -2,5 +2,5 @@ out/*
 !out/.keep
 !out/fonts/.keep
 glyphs/*
-!glyphs/exampl.svg
+!glyphs/example.svg
 !glyphs/.keep
