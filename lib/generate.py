@@ -25,6 +25,7 @@ for root, _, files in os.walk('./glyphs'):
         glyph = font.createChar(unicode, name)
         # Import the glyph info
         glyph.importOutlines("./glyphs/%s.svg" % name)
+        glyph.width = config['glyphwidth']
         unicode = unicode + 1
 
 _mkdir("./out/fonts")
