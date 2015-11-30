@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Preview &mdash; <%= conf['familyname'] %></title>
+    <link rel="stylesheet" href="<%= conf['familyname'] %>.css" type="text/css">
+  </head>
+  <body>
+    <ul>
+      <% glyphs.each do |glyph, unicode| %>
+        <li>
+          <i class="<%= "#{conf['familyname']} #{conf["classprefix"]}#{glyph}" %>"></i>
+          <h2><%= glyph %></h2>
+          <ul>
+            <li>entity: <input type="text" value="&amp;#x<%= unicode.to_s(16) %>"></li>
+            <li>content: <input type="text" value="\<%= unicode.to_s(16) %>"></li>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
+  </body>
+</html>

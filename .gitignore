@@ -1,0 +1,6 @@
+out/*
+!out/.keep
+!out/fonts/.keep
+glyphs/*
+!glyphs/exampl.svg
+!glyphs/.keep

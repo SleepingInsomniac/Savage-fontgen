@@ -1,0 +1,10 @@
+fontname: icon
+familyname: icon-font
+formats:
+  - svg
+  - oft
+  - woff
+  - ttf
+  - eot
+
+classprefix: if-
