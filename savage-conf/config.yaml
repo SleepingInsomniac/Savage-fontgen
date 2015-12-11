@@ -7,8 +7,9 @@ formats:
   - ttf
   - eot
 
-classprefix: svg-
 glyphwidth: 1024
 em: 1000
 encoding: 'utf-8'
 defaultRangeStart: 127744
+classprefix: svg-
+classname: 'savage'

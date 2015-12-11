@@ -1,7 +1,7 @@
 Gem::Specification.new do |s|
   
   s.name          = 'savage-fontgen'
-  s.version       = '0.1.2'
+  s.version       = '0.1.3'
   s.licenses      = ['MIT']
   s.summary       = "Generate font files from svgs."
   s.description   = "Use individual svg files to generate a font file. Created for use in generating webfont icon sets. Also generates a css and html preview file."
