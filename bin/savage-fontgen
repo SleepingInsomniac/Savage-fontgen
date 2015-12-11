@@ -1,0 +1,79 @@
+#!/usr/bin/env ruby
+# encoding: utf-8
+
+require 'optparse'
+require 'colorize'
+require 'erubis'
+require 'yaml'
+
+VERSION = '0.1.2'
+
+options = {}
+OptionParser.new do |opts|
+  opts.banner = "Usage: savage-fontgen SOURCE [-o DEST] [options]"
+  
+  opts.on "-o DEST", "--out", "output path"                      do |o| options[:dest_path]  = o end
+
+  # ==========================
+  # = Configuration Options: =
+  # ==========================
+  
+  opts.separator ""
+  opts.separator "Configuration options:"
+  
+  opts.on "-q",      "--quiet",       "Surpress output"          do |o| options[:quiet]       = o end
+  opts.on "-c FILE", "--config FILE", "Config File"              do |o| options[:config_file] = o end
+  
+  # ==================
+  # = Common Options =
+  # ==================
+  
+  opts.separator ""
+  opts.separator "Common options:"
+  
+  opts.on "-v", "--version", "Print version" do
+    puts "savage-fontgen - version #{VERSION}", ""
+    exit
+  end
+  
+  opts.on "-h", "--help", "Prints this help" do
+    puts opts
+    exit
+  end
+  
+end.parse!
+
+
+# abort "Usage: savage-fontgen source_dir [-o out_path] [options]" if options.empty? and ARGV[0].nil?
+
+@options = options
+def puts(*args)
+  super(*args) unless @options[:quiet]
+end
+
+@r_path = File.join(File.dirname(__FILE__), '..')
+@source_path = ARGV[0]
+
+@dest_path = options[:dest_path] || './out'
+@conf_path = File.join(@r_path, 'savage-conf')
+@conf_file = options[:config_file] || File.join(@conf_path, 'config.yaml')
+
+`#{File.join(@r_path, 'lib/generate')} #{@source_path} #{@dest_path} #{@conf_file}`
+
+conf    = YAML.load_file @conf_file
+glyphs  = YAML.load_file File.join(@dest_path, 'glyphs.yaml')
+nocache = Time.now.to_i.to_s
+
+glyphs.each do |name, unicode|
+  puts "#{name} => #{unicode.to_s(16)}"
+end
+
+File.open File.join(@dest_path, "#{conf["familyname"]}.css"), "w" do |f|
+  template = Erubis::Eruby.new File.read(File.join(@conf_path, "templates/style.css.erb"))
+  f.write template.result(nocache: nocache, glyphs: glyphs, conf: conf)
+end
+
+File.open File.join(@dest_path, "preview.html"), "w" do |f|
+  template = Erubis::Eruby.new File.read(File.join(@conf_path, "templates/preview.html.erb"))
+  f.write template.result(nocache: nocache, glyphs: glyphs, conf: conf)
+end

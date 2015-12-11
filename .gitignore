@@ -4,3 +4,4 @@ out/*
 glyphs/*
 !glyphs/example.svg
 !glyphs/.keep
+*.gem

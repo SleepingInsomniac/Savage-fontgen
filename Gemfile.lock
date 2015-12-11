@@ -1,13 +1,21 @@
+PATH
+  remote: .
+  specs:
+    savage-fontgen (0.1.2)
+      colorize (~> 0.7)
+      erubis (~> 2.7)
+
 GEM
   remote: https://rubygems.org/
   specs:
+    colorize (0.7.7)
     erubis (2.7.0)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  erubis
+  savage-fontgen!
 
 BUNDLED WITH
    1.10.6
